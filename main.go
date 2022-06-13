@@ -5,6 +5,8 @@ import (
 	"log"
 	"net/http"
 
+	"encoding/json"
+
 	"github.com/gorilla/mux"
 )
 
@@ -29,7 +31,13 @@ func Contact(w http.ResponseWriter, r *http.Request) {
 }
 
 func ListMovies(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Movie list")
+	movies := Movies{
+		Movie{"Lord of the rings I", 2001, "Peter Jackson"},
+		Movie{"Lord of the rings II", 2002, "Peter Jackson"},
+		Movie{"Lord of the rings III", 2003, "Peter Jackson"},
+	}
+
+	json.NewEncoder(w).Encode(movies);
 }
 
 func ShowMovie(w http.ResponseWriter, r *http.Request) {
